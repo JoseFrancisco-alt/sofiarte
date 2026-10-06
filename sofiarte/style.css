@@ -259,29 +259,42 @@ body.loading { overflow: hidden; }
    TRABALHOS — parede horizontal
    ========================================================= */
 .wall-section { position: relative; }
-.wall-sticky { position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: auto 1fr auto; padding: 96px 0 34px; overflow: hidden; }
+.wall-sticky { position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: auto 1fr auto; padding: 78px 0 20px; overflow: hidden; }
+.wall-head .title { font-size: clamp(42px, 4.6vw, 68px); }
+.wall-head > div:first-child { gap: 6px !important; }
 .wall-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 22px; padding-inline: var(--gutter); }
-.wall-head > div { display: grid; gap: 12px; }
-.filters { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { padding: 9px 18px; border: 1px solid var(--line); border-radius: 999px; background: transparent; font-size: 13.5px; transition: background .35s, color .35s, border-color .35s; }
-.chip:hover { border-color: var(--ink); }
-.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.wall-head > div:first-child { display: grid; gap: 12px; }
+/* filtros: índice de salas, em linha */
+.filters { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end; gap: 4px clamp(18px, 2.2vw, 34px); padding-bottom: 6px; }
+.chip { position: relative; background: none; border: 0; padding: 10px 0 12px; font: italic 400 clamp(20px, 1.8vw, 25px)/1 var(--display); color: var(--muted); white-space: nowrap; transition: color .4s var(--ease); }
+.chip sup { font: 400 10px var(--mono); font-style: normal; letter-spacing: .06em; margin-left: 5px; color: var(--wire); vertical-align: 9px; transition: color .4s; }
+.chip::after { content: ""; position: absolute; left: -3px; right: -3px; bottom: 0; height: 8px; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 4 Q6 0 12 4 T24 4' fill='none' stroke='%23000' stroke-width='1.3'/%3E%3C/svg%3E") repeat-x 0 50% / 24px 8px; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 4 Q6 0 12 4 T24 4' fill='none' stroke='%23000' stroke-width='1.3'/%3E%3C/svg%3E") repeat-x 0 50% / 24px 8px;
+  clip-path: inset(0 100% 0 0); transition: clip-path .7s var(--ease); }
+.chip::before { content: ""; position: absolute; left: 50%; top: 0; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--red); transform: scale(0); transition: transform .45s cubic-bezier(.3,1.8,.5,1); }
+.chip:hover { color: var(--ink); }
+.chip:hover::after { clip-path: inset(0 55% 0 0); }
+.chip[aria-pressed="true"] { color: var(--ink); }
+.chip[aria-pressed="true"] sup { color: var(--red); }
+.chip[aria-pressed="true"]::after { clip-path: inset(0 0 0 0); }
+.chip[aria-pressed="true"]::before { transform: scale(1); }
 .wall-viewport { position: relative; min-height: 0; }
 .wall-track { position: absolute; left: 0; top: 0; bottom: 0; display: flex; align-items: center; gap: clamp(60px, 7vw, 120px); padding-inline: var(--gutter) 30vw; will-change: transform; }
-.piece { width: calc(var(--w) * var(--k, 1) * 1px); margin-top: calc(var(--y) * var(--k, 1) * 2px); position: relative; flex: none; display: grid; justify-items: start; gap: 18px; padding-top: 48px; cursor: zoom-in; background: none; border: 0; text-align: left; }
-.piece .lamp { top: -60px; }
+.piece { width: calc(var(--w) * var(--k, 1) * 1.7px); margin-top: calc(var(--y) * var(--k, 1) * .6px); position: relative; flex: none; display: block; padding: 34px 0 0; cursor: zoom-in; background: none; border: 0; text-align: left; }
+.piece .lamp { top: -50px; }
+.piece .frame { border-width: 5px; padding: 3.5%; }
+.piece .nail { top: -26px; }
+.piece .wire { top: -22px; height: 26px; }
 .piece .swing { width: 100%; }
 .piece .frame { transition: box-shadow .5s var(--ease); }
 .piece:hover .frame { box-shadow: 0 34px 44px -26px rgba(43,35,30,.7); }
-.piece .plaque { margin-left: 6%; transform: translateY(8px); opacity: .0; transition: opacity .6s var(--ease), transform .6s var(--ease); }
-.piece.lit .plaque { opacity: 1; transform: none; }
+.piece .plaque { position: absolute; right: -16px; bottom: -18px; z-index: 2; transform: translateY(8px) rotate(-1.5deg); opacity: 0; transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.piece.lit .plaque { opacity: 1; transform: rotate(-1.5deg); }
 .piece.out { display: none; }
 .piece .mat img { filter: grayscale(1) sepia(.35) blur(3px) brightness(1.08); transform: scale(1.06); transition: filter 1.6s var(--ease), transform 1.8s var(--ease); }
 .piece.lit .mat img { filter: none; transform: none; }
 .piece.lit:hover .mat img { transform: scale(1.04); }
-.chip-red::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--red); margin-right: 7px; vertical-align: 2px; }
-.chip-red[aria-pressed="true"] { background: var(--red); border-color: var(--red); }
-.chip-red[aria-pressed="true"]::before { background: var(--paper); }
+.chip-red, .chip-red:hover, .chip-red[aria-pressed="true"] { color: var(--red); }
 .piece.enter { animation: pieceIn .8s var(--ease) both; }
 @keyframes pieceIn { from { opacity: 0; transform: translateY(-40px) rotate(-3deg); } }
 .wall-foot { display: flex; align-items: center; gap: 22px; padding-inline: var(--gutter); }
@@ -529,12 +542,12 @@ body.loading { overflow: hidden; }
 
   .wall-sticky { position: relative; height: auto; padding-block: 90px 40px; }
   .wall-head { align-items: start; }
-  .filters { width: 100%; }
+  .filters { width: 100%; justify-content: flex-start; }
   .wall-viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-block: 20px 10px; }
   .wall-viewport::-webkit-scrollbar { display: none; }
   .wall-track { position: relative; padding-right: var(--gutter); transform: none !important; align-items: flex-start; gap: 34px; }
-  .piece { scroll-snap-align: center; width: min(calc(var(--w) * 1px), 74vw); margin-top: 0; }
-  .piece .plaque { opacity: 1; transform: none; }
+  .piece { scroll-snap-align: center; width: min(calc(var(--w) * 1.4px), 84vw); margin-top: 0; padding-bottom: 26px; }
+  .piece .plaque { opacity: 1; transform: rotate(-1.5deg); right: -6px; bottom: 0; }
 
   .healed, .about, .book, .faq, .scar { grid-template-columns: 1fr; }
   .book-copy { position: static; }

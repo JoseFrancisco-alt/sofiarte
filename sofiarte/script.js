@@ -363,7 +363,7 @@ function layoutWall() {
     track.style.setProperty("--k", 1);
     const pieces = $$(".piece:not(.out)", track);
     const tallest = Math.max(...pieces.map((p) => p.offsetHeight + Math.abs(parseFloat(getComputedStyle(p).marginTop))));
-    track.style.setProperty("--k", clamp((wallViewport.clientHeight * 0.94) / tallest, 0.45, 1.15).toFixed(3));
+    track.style.setProperty("--k", clamp((wallViewport.clientHeight * 0.96) / tallest, 0.45, 1.4).toFixed(3));
     wallMax = Math.max(0, track.scrollWidth - innerWidth);
     wallSection.style.height = `${wallMax + innerHeight}px`;
   } else {
@@ -402,6 +402,12 @@ function updateWall() {
   $("#wallCount").textContent = `${String(current + 1).padStart(2, "0")} / ${String(pieces.length).padStart(2, "0")} · clique pra ampliar`;
 }
 wallViewport.addEventListener("scroll", updateWall, { passive: true });
+
+/* filtros: quantidade de trabalhos em cada um */
+$$(".chip").forEach((c) => {
+  const n = c.dataset.f === "all" ? WORKS.length : WORKS.filter((w) => w.cat === c.dataset.f).length;
+  c.insertAdjacentHTML("beforeend", `<sup>${String(n).padStart(2, "0")}</sup>`);
+});
 
 /* filtros */
 $("#filters").addEventListener("click", (e) => {
