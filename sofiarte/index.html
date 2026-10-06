@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sofia — Tatuadora em Maceió</title>
+  <meta name="description" content="Sofia, tatuadora fine line em Maceió/AL. Bichos do mar, flores e pequenos voos em preto e cinza.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Pinyon+Script&family=Jost:wght@300;400;500&family=DM+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+  <div class="paper" aria-hidden="true"></div>
+
+  <!-- PRELOADER: a assinatura é desenhada -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <svg class="loader-sig" viewBox="0 0 420 160"><text x="50%" y="62%" text-anchor="middle">Sofia</text></svg>
+    <span class="loader-dot"></span>
+    <p class="loader-sub">arte viva</p>
+  </div>
+
+  <!-- CURSOR: agulha + rastro de traço fino -->
+  <canvas class="trail" id="trail" aria-hidden="true"></canvas>
+  <div class="needle" id="needle" aria-hidden="true"><span id="needleLabel"></span></div>
+
+  <!-- RAMO QUE CRESCE COM O SCROLL -->
+  <svg class="vine" id="vine" viewBox="0 0 40 1000" preserveAspectRatio="none" aria-hidden="true">
+    <path id="vinePath" d="M20 0 C34 60 6 120 20 180 C34 240 6 300 20 360 C34 420 6 480 20 540 C34 600 6 660 20 720 C34 780 6 840 20 900 C30 950 16 980 20 1000"/>
+  </svg>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <a href="#topo" class="logo" aria-label="Sofia, voltar ao topo">Sofia<i></i></a>
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="#trabalhos">Trabalhos</a>
+      <a href="#viagens">Viagens</a>
+      <a href="#flashes">Flashes</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+    <a href="#agendar" class="btn btn-solid nav-cta">Agendar</a>
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="topo">
+      <svg class="jelly" viewBox="0 0 200 270" aria-hidden="true" data-art="jelly"></svg>
+      <div class="hero-text">
+        <p class="kicker-mono hero-kick"><span>Tatuadora</span><span>Fine line</span><span>Maceió · AL</span></p>
+        <h1 class="hero-title" aria-label="Arte viva, por Sofia">
+          <span class="ht-line" aria-hidden="true">Arte</span>
+          <span class="ht-line ht-italic" aria-hidden="true">viva</span>
+          <span class="ht-sig" aria-hidden="true">por Sofia</span>
+        </h1>
+        <p class="hero-sub">Fine line em preto e cinza. Bichos do mar, flores e pequenos voos, cada desenho criado para quem vai usar.</p>
+        <div class="hero-ctas">
+          <a href="#agendar" class="btn btn-solid">Quero agendar <b>→</b></a>
+          <a href="#trabalhos" class="btn">Ver trabalhos</a>
+        </div>
+      </div>
+      <div class="hero-hang">
+        <div class="lamp lit" aria-hidden="true"></div>
+        <div class="swing" data-swing>
+          <span class="nail" aria-hidden="true"></span>
+          <span class="wire" aria-hidden="true"></span>
+          <div class="frame frame-hero">
+            <div class="mat">
+              <img src="img/sofia-pb.jpg" alt="Sofia tatuando, foto em preto e branco" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',innerHTML:'<span>FOTO P&amp;B · Sofia tatuando</span>'}))">
+            </div>
+          </div>
+        </div>
+        <div class="plaque plaque-hero"><b>Sofia no estúdio</b><span>Tatuadora em Maceió</span><small>Foto P&amp;B</small></div>
+      </div>
+      <a href="#manifesto" class="scroll-cue" aria-label="Rolar para baixo"><span>role</span><i></i></a>
+    </section>
+
+    <!-- FRASE QUE VAI SENDO TATUADA -->
+    <section class="manifesto" id="manifesto" aria-label="Transformo corpos em galerias de arte viva">
+      <div class="manifesto-sticky">
+        <p class="manifesto-text" id="manifesto-text" aria-hidden="true">Transformo corpos em galerias de <em>arte viva</em></p>
+      </div>
+    </section>
+
+    <!-- TRABALHOS: parede da galeria -->
+    <section class="wall-section" id="trabalhos">
+      <div class="wall-sticky">
+        <div class="wall-head">
+          <div>
+            <p class="eyebrow">Portfólio</p>
+            <h2 class="title"><em>Trabalhos</em></h2>
+          </div>
+          <div class="filters" id="filters" role="group" aria-label="Filtrar trabalhos">
+            <button class="chip" aria-pressed="true" data-f="all">Todos</button>
+            <button class="chip" aria-pressed="false" data-f="flor">Flores</button>
+            <button class="chip" aria-pressed="false" data-f="mar">Mar</button>
+            <button class="chip" aria-pressed="false" data-f="sol">Sol &amp; lua</button>
+            <button class="chip chip-red" aria-pressed="false" data-f="vermelho">Toques de vermelho</button>
+          </div>
+        </div>
+        <div class="wall-viewport" id="wallViewport">
+          <div class="wall-track" id="wallTrack"></div>
+        </div>
+        <div class="wall-foot">
+          <span class="kicker-mono" id="wallCount"></span>
+          <span class="wall-progress" aria-hidden="true"><i id="wallBar"></i></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CICATRIZADAS: antes e depois -->
+    <section class="healed" id="cicatrizadas">
+      <div class="healed-copy">
+        <p class="eyebrow reveal">Cicatrizadas</p>
+        <h2 class="title reveal">No dia e <em>meses depois</em></h2>
+        <p class="text reveal">Arraste a linha e compare a mesma tatuagem no dia da sessão e depois de cicatrizada.</p>
+        <div class="healed-thumbs" id="healedThumbs" role="group" aria-label="Escolher tatuagem"></div>
+      </div>
+      <div class="compare reveal" id="compare" data-cursor="arraste">
+        <div class="cmp-layer cmp-after" id="cmpAfter"></div>
+        <div class="cmp-layer cmp-before" id="cmpBefore"></div>
+        <div class="cmp-handle" id="cmpHandle" aria-hidden="true"><span></span></div>
+        <span class="cmp-tag cmp-tag-l">No dia</span>
+        <span class="cmp-tag cmp-tag-r">Cicatrizada</span>
+        <input type="range" min="0" max="100" value="50" id="cmpRange" aria-label="Comparar no dia e cicatrizada">
+      </div>
+    </section>
+
+    <!-- RESSIGNIFICAR: tatuagem sobre cicatriz -->
+    <section class="scar" id="ressignificar">
+      <svg class="scar-stroke" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M-20 210 C140 150 260 250 420 190 S700 90 860 160 S1080 240 1220 130"/>
+        <path d="M-20 232 C150 180 280 262 440 214 S720 120 880 182 S1090 258 1220 156"/>
+      </svg>
+      <div class="scar-copy">
+        <p class="eyebrow reveal">Ressignificar</p>
+        <h2 class="title reveal">Tatuagem sobre <em>cicatriz</em></h2>
+        <p class="lead reveal">A ideia não é apagar nem esconder o que aconteceu. É transformar a marca em arte.</p>
+        <p class="text reveal">Cada desenho é pensado junto com você, respeitando a sua história e o seu tempo. [Confirmar com ela: tempo mínimo de cicatrização e como funciona a avaliação.]</p>
+        <a href="#agendar" class="btn reveal">Conversar sobre isso <b>→</b></a>
+      </div>
+      <div class="scar-frames" id="scarFrames"></div>
+    </section>
+
+    <!-- VIAGENS -->
+    <section class="travel" id="viagens">
+      <div class="travel-head">
+        <p class="eyebrow reveal">Viagens</p>
+        <h2 class="title reveal">Onde vou <em>estar</em></h2>
+        <p class="text reveal">Atendo em Maceió o ano todo e algumas vezes por ano tatuo em outras cidades. As vagas de cada viagem abrem primeiro aqui.</p>
+      </div>
+      <div class="trips" id="trips"></div>
+      <div class="passport" id="passport">
+        <svg class="route" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><path id="routePath" d="M40 80 C150 10 230 110 330 60 S520 0 610 70 S800 120 960 40"/></svg>
+        <span class="kicker-mono passport-lbl">Já tatuei em</span>
+        <div class="stamps" id="stamps"></div>
+      </div>
+    </section>
+
+    <!-- FLASHES -->
+    <section class="flashes-section" id="flashes">
+      <div class="travel-head">
+        <p class="eyebrow reveal">Disponíveis</p>
+        <h2 class="title reveal"><em>Flashes</em></h2>
+        <p class="text reveal">Desenhos prontos, tatuados uma vez só. O ponto vermelho quer dizer que já foi reservado.</p>
+      </div>
+      <div class="flashes" id="flashGrid"></div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="about" id="sobre">
+      <div class="about-frame reveal">
+        <div class="frame"><div class="mat"><div class="parallax" id="aboutPhoto">
+          <img src="img/v-lago.jpg" alt="Sofia num lago entre montanhas na Suíça" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph ph-tall',innerHTML:'<span>Retrato P&amp;B · Sofia na praia</span>'}))">
+        </div></div></div>
+      </div>
+      <div class="about-copy">
+        <p class="eyebrow reveal">Sobre</p>
+        <h2 class="title reveal">Quem <em>tatua</em></h2>
+        <p class="lead reveal">[Bio da Sofia: como começou, por que desenha natureza e mar, e como é tatuar viajando.]</p>
+        <p class="text reveal">[Segundo parágrafo curto: formação, quanto tempo tatua, o que mais gosta de criar.]</p>
+        <div class="polaroids" aria-label="Fotos dela fora do estúdio">
+          <figure class="polaroid" style="--t:-5deg"><img src="img/v-mergulho.jpg" alt="Sofia mergulhando no mar" loading="lazy"><figcaption>o mar</figcaption></figure>
+          <figure class="polaroid" style="--t:4deg"><img src="img/v-chapada.jpg" alt="Montanhas ao pôr do sol" loading="lazy"><figcaption>a serra</figcaption></figure>
+        </div>
+        <svg class="sig-draw" viewBox="0 0 300 110" aria-label="Assinatura Sofia" role="img"><text x="8" y="80">Sofia</text></svg>
+      </div>
+    </section>
+
+    <!-- AGENDAR -->
+    <section class="book" id="agendar">
+      <div class="book-copy">
+        <p class="eyebrow reveal">Como agendar</p>
+        <h2 class="title reveal">Vamos marcar sua <em>tattoo</em></h2>
+        <p class="text reveal">Preencha os campos e a mensagem já sai pronta pro WhatsApp.</p>
+        <ol class="steps" id="steps">
+          <li><b>I</b><div><h3>A ideia</h3><p>Tema, local do corpo e tamanho.</p></div></li>
+          <li><b>II</b><div><h3>O orçamento</h3><p>Valor e tempo de sessão pelo WhatsApp.</p></div></li>
+          <li><b>III</b><div><h3>A reserva</h3><p>[Sinal para garantir a data? Confirmar com ela.]</p></div></li>
+          <li><b>IV</b><div><h3>A sessão</h3><p>O desenho final é apresentado no dia.</p></div></li>
+        </ol>
+      </div>
+
+      <div class="desk">
+        <form class="form" id="form" autocomplete="off">
+          <div class="flash-pick" id="flashPick" hidden><span>Flash escolhido: <b id="flashPickName"></b></span><button type="button" id="flashClear" aria-label="Remover flash">×</button></div>
+          <div class="f"><label for="fName">Seu nome</label><input id="fName" placeholder="Como posso te chamar?"></div>
+          <div class="f"><label for="fIdea">Sua ideia</label><textarea id="fIdea" rows="3" placeholder="Ex.: uma tartaruga com águas-vivas em volta"></textarea></div>
+          <div class="f-row">
+            <div class="f"><label for="fPlace">Local do corpo</label>
+              <select id="fPlace"><option>Antebraço</option><option>Braço / ombro</option><option>Costas</option><option>Costela</option><option>Perna / panturrilha</option><option>Coxa</option><option>Tornozelo / pé</option><option>Outro</option></select></div>
+            <div class="f"><label for="fSize">Tamanho</label>
+              <select id="fSize"><option>Pequena (até 5 cm)</option><option selected>Média (5–12 cm)</option><option>Grande (12–20 cm)</option><option>Peça grande</option></select></div>
+          </div>
+          <div class="f"><label for="fWhere">Onde quer tatuar</label>
+            <select id="fWhere"><option>Maceió · AL</option><option>Numa das viagens</option></select></div>
+          <label class="upload" for="fFile"><input type="file" id="fFile" accept="image/*"><span id="uploadText"><b>Foto de referência</b> · opcional</span></label>
+        </form>
+
+        <div class="note" id="note">
+          <div class="note-top"><b>Sua mensagem</b><span class="kicker-mono">WhatsApp</span></div>
+          <p class="note-msg" id="msg" aria-live="polite"></p>
+          <a class="btn btn-solid btn-block" id="waBtn" href="#" target="_blank" rel="noopener">Enviar no WhatsApp <b>→</b></a>
+          <p class="alt">Prefere o direct? <button type="button" class="linkbtn" id="copyBtn">Copiar mensagem</button> e manda pra <a href="https://www.instagram.com/sofiarte_tattoo/" target="_blank" rel="noopener">@sofiarte_tattoo</a></p>
+          <p class="toast" id="toast" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DÚVIDAS -->
+    <section class="faq" id="duvidas">
+      <div>
+        <p class="eyebrow reveal">Dúvidas</p>
+        <h2 class="title reveal">Perguntas <em>frequentes</em></h2>
+      </div>
+      <div class="faq-list">
+        <details class="reveal"><summary>Qual o valor mínimo?</summary><p>[Valor mínimo, confirmar com ela.]</p></details>
+        <details class="reveal"><summary>Faz tatuagem colorida?</summary><p>O trabalho é em preto e cinza, às vezes com um ponto de vermelho. [Confirmar com ela.]</p></details>
+        <details class="reveal"><summary>Como funcionam as viagens?</summary><p>Cada viagem tem datas e estúdio parceiro. O pedido é feito pelo mesmo formulário.</p></details>
+        <details class="reveal"><summary>Como cuido da tatuagem depois?</summary><p>[Cuidados que ela passa pros clientes.]</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <svg class="footer-sig" id="footerSig" viewBox="0 0 520 190" role="img" aria-label="Sofia"><text x="10" y="140">Sofia</text><circle cx="470" cy="128" r="10"/></svg>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/sofiarte_tattoo/" target="_blank" rel="noopener">Instagram @sofiarte_tattoo</a>
+      <a href="#" id="waFooter" target="_blank" rel="noopener">WhatsApp</a>
+      <span class="kicker-mono">Maceió · AL, e pelo mundo</span>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Trabalho ampliado" hidden>
+    <button class="lb-btn lb-close" id="lbClose" aria-label="Fechar">×</button>
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Anterior">←</button>
+    <figure class="lb-fig">
+      <div class="frame"><div class="mat" id="lbMedia"></div></div>
+      <figcaption class="plaque" id="lbCap"></figcaption>
+    </figure>
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Próximo">→</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
